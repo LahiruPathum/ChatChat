@@ -66,6 +66,7 @@ React.useEffect(()=>{
       tempFriends = tempFriends?[...tempFriends,uid]:[uid];
       const newChat:Chat = {
         users:[user?.uid,uid],
+        messages:[]
       }
       const chatId = ref.ref('/Chat/').push(newChat)
       
