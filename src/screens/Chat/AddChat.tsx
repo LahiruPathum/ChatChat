@@ -23,6 +23,9 @@ React.useEffect(()=>{
     ref.ref('/User/').once('value')
     .then((snapshot)=>{
       setUserList([]);
+      if(!snapshot.exists()){
+        return;
+      }
       const userData = snapshot.val()
       let friends:Array<string|undefined> = [];
       let myData:User = {};

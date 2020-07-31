@@ -11,6 +11,6 @@ const firebaseConfig = {
     measurementId: "G-3QPB01TPVX"
   };
 
-export default function firebaseInit(){
-    firebase.initializeApp(firebaseConfig);
+export default async function firebaseInit(){
+   await firebase.initializeApp(firebaseConfig);
 }

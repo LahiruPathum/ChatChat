@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { GiftedChat, Message } from 'react-native-gifted-chat';
+import { GiftedChat, Message, IMessage } from 'react-native-gifted-chat';
 import { RouteProp } from '@react-navigation/native';
 import { TabOneParamList, Chat } from '../../types';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -19,17 +19,7 @@ const ChatView = (props: Props) => {
   const user = firebase.auth().currentUser;
   const ref = firebase.database();
   let chatId = props.route.params.chatId;
-  const msg = {
-    _id: '1',
-    text: 'Hello developer',
-    createdAt: new Date(),
-    user: {
-      _id: '2',
-      name: 'React Native',
-      avatar: 'https://placeimg.com/140/140/any',
-    },
-  }
-  const [message,setMessage] = React.useState([msg])
+  const [message,setMessage] = React.useState<Array<IMessage>>([])
   React.useEffect(()=>{
     console.log(chatId);
     loadMessages();
@@ -43,7 +33,6 @@ const ChatView = (props: Props) => {
 
   const onSend = React.useCallback((messages = []) => {
     setMessage(previousMessages => GiftedChat.append(previousMessages, messages));
-    console.log('hi1')
     ref.ref('/Chat/'+chatId+'/').once('value')
     .then((snapshot)=>{
       const chat:Chat = snapshot.val();

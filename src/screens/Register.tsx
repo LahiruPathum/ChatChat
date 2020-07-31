@@ -18,10 +18,13 @@ const Register = (props: RegisterProps) => {
 
   const register=()=>{
 
-    // if(pwd!==cpwd)
-    // {
-    //   return false;
-    // }
+    if(pwd!==cpwd)
+    {
+      alert('password not match!')
+      setPWD('')
+      setCPWD('')
+      return false;
+    }
     firebase.auth().createUserWithEmailAndPassword(email,pwd)
     .then(()=>{
       const user = firebase.auth().currentUser;
